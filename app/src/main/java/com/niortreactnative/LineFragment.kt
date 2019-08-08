@@ -8,6 +8,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import com.beust.klaxon.Klaxon
+import kotlinx.android.synthetic.main.fragment_line.*
+import kotlinx.android.synthetic.main.line_item_view.*
+import org.json.JSONObject
 import java.io.InputStream
 import java.nio.charset.Charset
 
@@ -55,11 +60,11 @@ class LineFragment : Fragment() {
 
         Log.d(viewTag, "onCreateView")
 
-        var view = inflater.inflate(R.layout.fragment_line, container, false)
+        //var view = inflater.inflate(R.layout.fragment_line, container, false)
+        //populateView()
+        //return view
 
-        populateView()
-
-        return view
+        return inflater.inflate(R.layout.fragment_line, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -69,6 +74,7 @@ class LineFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.d(viewTag, "onAttach")
         if (context is OnFragmentInteractionListener) {
             listener = context
             mContext = context
@@ -88,6 +94,13 @@ class LineFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(viewTag, "onStart")
+        Log.d(viewTag, view?.toString())
+        populateView()
     }
 
     /**
@@ -128,9 +141,22 @@ class LineFragment : Fragment() {
     private fun populateView(){
         //TODO: read JSON and populate View
 
+        try{
+        /*
         val line = readJsonFileFromAssets("$jsonFile.json")
         Log.d(viewTag, line.toString())
+        */
+          //  val jsonLine = Klaxon().parse<Line>(line.toString())
+            val jsonLine = Klaxon().parse<Line>(mContext.assets.open("$jsonFile.json"))
 
+            Log.d(viewTag, jsonLine?.departure)
+            lineDeparture.text = jsonLine?.departure.toString()
+            lineArrival.text = jsonLine?.arrival.toString()
+
+
+        }catch (e:java.lang.Exception){
+            Log.e(viewTag, e.toString())
+        }
 
     }
 
@@ -143,6 +169,7 @@ class LineFragment : Fragment() {
             inputStream.read(buffer)
             inputStream.close()
             String( buffer, Charset.defaultCharset())
+
 
         } catch (e:Exception) {
         Log.e(viewTag, "ERROR !!!!!")

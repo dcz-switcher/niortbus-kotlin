@@ -17,31 +17,6 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
     />
 
-    <!--
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="371dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/app_padding"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" android:id="@+id/linearLayout">
-
-        <com.example.kotlinosmmap.LineItemView
-                android:id="@+id/lineItem1"
-                app:lineId="1"
-                app:lineColor="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        <com.example.kotlinosmmap.LineItemView
-                app:lineId="2"
-                app:lineColor="@color/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
--->
-
 
     <ListView
             android:id="@+id/line_item_list_view"

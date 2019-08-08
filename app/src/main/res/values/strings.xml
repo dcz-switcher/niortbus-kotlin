@@ -1,13 +1,11 @@
 <resources>
-    <string name="app_name">Kotlin OSM Map</string>
+    <string name="app_name">Niort Bus</string>
+
     <string name="home_h1">Lignes TAN</string>
 
-    <string name="ligne1_start">Trévin / Parpin</string>
-    <string name="ligne1_end">Pôle Universitaire</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="fake_departure">Fake departure</string>
+    <string name="fake_arrival">Fake arrival</string>
+    <string name="fake_image_content_description">Fake description</string>
 
     <string name="transitionEnter">transitionEnterName</string>
 </resources>
