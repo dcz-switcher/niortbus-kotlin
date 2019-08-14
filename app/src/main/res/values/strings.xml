@@ -6,6 +6,7 @@
     <string name="fake_departure">Fake departure</string>
     <string name="fake_arrival">Fake arrival</string>
     <string name="fake_image_content_description">Fake description</string>
+    <string name="fake_period">Lundi au Vendredi</string>
 
     <string name="transitionEnter">transitionEnterName</string>
 </resources>
