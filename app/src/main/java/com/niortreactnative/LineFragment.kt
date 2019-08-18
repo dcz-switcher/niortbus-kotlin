@@ -3,6 +3,7 @@ package com.niortreactnative
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Contacts
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.line_item_view.*
 import org.json.JSONObject
 import java.io.InputStream
 import java.nio.charset.Charset
+import kotlinx.coroutines.*
 
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,6 +41,7 @@ class LineFragment : Fragment() {
     private var jsonFile: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+    private var jsonLine: Line? = null
 
 
 
@@ -83,6 +86,22 @@ class LineFragment : Fragment() {
                 jsonFile = it
             }
 
+            try{
+                GlobalScope.launch (Dispatchers.Main){
+
+                    withContext(Dispatchers.IO){
+                        populateView()
+                    }
+
+                    Log.d(viewTag, "long task finished, update UI")
+
+                    updateUI()
+
+                }
+            }catch (e:Exception){
+                Log.e(viewTag, e.toString())
+            }
+
         } else {
             throw RuntimeException("$context.toString() must implement OnFragmentInteractionListener")
         }
@@ -100,8 +119,18 @@ class LineFragment : Fragment() {
         super.onStart()
         Log.d(viewTag, "onStart")
         Log.d(viewTag, view?.toString())
-        populateView()
     }
+
+    private fun updateUI(){
+        try{
+            lineDeparture.text = jsonLine?.departure.toString()
+            lineArrival.text = jsonLine?.arrival.toString()
+
+        }catch (e:Exception){
+            Log.e(viewTag, e.toString())
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -139,7 +168,6 @@ class LineFragment : Fragment() {
 
 
     private fun populateView(){
-        //TODO: read JSON and populate View
 
         try{
         /*
@@ -147,11 +175,13 @@ class LineFragment : Fragment() {
         Log.d(viewTag, line.toString())
         */
           //  val jsonLine = Klaxon().parse<Line>(line.toString())
-            val jsonLine = Klaxon().parse<Line>(mContext.assets.open("$jsonFile.json"))
+            Log.d(viewTag, "populateView before parsing")
+
+            jsonLine = Klaxon().parse<Line>(mContext.assets.open("$jsonFile.json"))
+
+            Log.d(viewTag, "populateView after parsing")
 
             Log.d(viewTag, jsonLine?.departure)
-            lineDeparture.text = jsonLine?.departure.toString()
-            lineArrival.text = jsonLine?.arrival.toString()
 
 
         }catch (e:java.lang.Exception){
