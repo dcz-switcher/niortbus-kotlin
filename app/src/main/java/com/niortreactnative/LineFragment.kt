@@ -5,10 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Contacts
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutCompat
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.beust.klaxon.Klaxon
 import kotlinx.android.synthetic.main.fragment_line.*
@@ -17,6 +21,7 @@ import org.json.JSONObject
 import java.io.InputStream
 import java.nio.charset.Charset
 import kotlinx.coroutines.*
+import org.json.JSONArray
 
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,6 +48,9 @@ class LineFragment : Fragment() {
 
     private var jsonLine: Line? = null
 
+    private lateinit var stationsRecyclerView:RecyclerView
+    private lateinit var stationsLayoutManager: RecyclerView.LayoutManager
+    private lateinit var stationsAdapter: RecyclerView.Adapter<*>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +60,7 @@ class LineFragment : Fragment() {
         }
 
         Log.d(viewTag, "onCreate ... jsonFile = $jsonFile")
+
     }
 
     override fun onCreateView(
@@ -102,6 +111,7 @@ class LineFragment : Fragment() {
                 Log.e(viewTag, e.toString())
             }
 
+
         } else {
             throw RuntimeException("$context.toString() must implement OnFragmentInteractionListener")
         }
@@ -121,10 +131,30 @@ class LineFragment : Fragment() {
         Log.d(viewTag, view?.toString())
     }
 
+
+
+
     private fun updateUI(){
         try{
+            // set departure and arrival stations
             lineDeparture.text = jsonLine?.departure.toString()
             lineArrival.text = jsonLine?.arrival.toString()
+
+
+            // set stations list
+            stationsLayoutManager = LinearLayoutManager(this.context)
+
+            /*
+            stationsRecyclerView = buslineStations.apply {
+                layoutManager = stationsLayoutManager
+                adapter = stationsAdapter
+            }
+            */
+
+            stationsRecyclerView = buslineStations.apply {
+                layoutManager = stationsLayoutManager
+                adapter = BuslineStationsAdapter(JSONArray(arrayOf("un", "deux", "trois")))
+            }
 
         }catch (e:Exception){
             Log.e(viewTag, e.toString())
