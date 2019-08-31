@@ -3,7 +3,6 @@ package com.niortreactnative
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Contacts
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.beust.klaxon.JsonReader
 import com.beust.klaxon.Klaxon
 import kotlinx.android.synthetic.main.fragment_line.*
 import kotlinx.android.synthetic.main.line_item_view.*
@@ -22,6 +22,7 @@ import java.io.InputStream
 import java.nio.charset.Charset
 import kotlinx.coroutines.*
 import org.json.JSONArray
+import java.io.StringReader
 
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -144,12 +145,7 @@ class LineFragment : Fragment() {
             // set stations list
             stationsLayoutManager = LinearLayoutManager(this.context)
 
-            /*
-            stationsRecyclerView = buslineStations.apply {
-                layoutManager = stationsLayoutManager
-                adapter = stationsAdapter
-            }
-            */
+
 
             stationsRecyclerView = buslineStations.apply {
                 layoutManager = stationsLayoutManager
@@ -208,13 +204,22 @@ class LineFragment : Fragment() {
             Log.d(viewTag, "populateView before parsing")
 
             jsonLine = Klaxon().parse<Line>(mContext.assets.open("$jsonFile.json"))
+            //jsonLine = Klaxon().parse<Line>(mContext.assets.open("ligne0.json"))
+            Log.d(viewTag, "DEBUG open ligne0.json to understand how Klaxon works")
 
             Log.d(viewTag, "populateView after parsing")
 
-            Log.d(viewTag, jsonLine?.departure)
+            Log.d(viewTag, "DEPARTURE = " + jsonLine?.departure)
+            Log.d(viewTag, "ARRIVAL = " + jsonLine?.arrival)
 
+            Log.d(viewTag, "PERIODE SIZE = " + jsonLine?.periodes?.size)
+            Log.d(viewTag, "PERIODE 0 NAME = " + jsonLine?.periodes?.get(0)?.name)
 
-        }catch (e:java.lang.Exception){
+            Log.d(viewTag, "ALLER ARRAY SIZE = " + jsonLine?.periodes?.get(0)?.aller?.size)
+            Log.d(viewTag, "STATION 0 NAME = " + jsonLine?.periodes?.get(0)?.aller?.get(0)?.name)
+
+            
+        }catch (e:Exception){
             Log.e(viewTag, e.toString())
         }
 

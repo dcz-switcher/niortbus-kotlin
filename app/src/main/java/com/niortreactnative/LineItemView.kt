@@ -36,7 +36,7 @@ class LineItemView : LinearLayout
                         Log.d(viewTag, getLineId())
                     }
 
-                    if (a?.hasValue(R.styleable.LineItemView_lineColor)!!) {
+                    if (a.hasValue(R.styleable.LineItemView_lineColor)) {
                         setLineColor(a.getColor(R.styleable.LineItemView_lineColor, 0))
                         Log.d(viewTag, getLinecolor().toString())
                         my_background.setBackgroundColor(getLinecolor())
@@ -58,19 +58,19 @@ class LineItemView : LinearLayout
     }
      */
 
-    fun setLineId(lineId: String){
+    private fun setLineId(lineId: String){
         mLineID = lineId
     }
 
-    fun getLineId(): String {
+    private fun getLineId(): String {
         return mLineID
     }
 
-    fun setLineColor(lineColor: Int){
+    private fun setLineColor(lineColor: Int){
         mLineColor = lineColor
     }
 
-    fun getLinecolor():Int{
+    private fun getLinecolor():Int{
         return mLineColor
     }
 
