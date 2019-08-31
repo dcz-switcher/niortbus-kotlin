@@ -84,19 +84,18 @@
             android:layout_width="match_parent" android:layout_height="50dp"
             android:orientation="horizontal" android:id="@+id/buslinePeriod">
 
-        <TextView android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:text="@string/fake_period"
-                  android:layout_weight="1"
-                  android:gravity="center"
-        />
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/fake_period" />
         <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/fake_image_content_description"
                 app:srcCompat="@android:drawable/btn_star_big_on"
-                android:layout_gravity="center"
-        />
+                android:layout_gravity="center" />
 
     </LinearLayout>
 

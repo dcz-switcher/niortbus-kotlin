@@ -31,6 +31,21 @@ class LineItemView : LinearLayout
                 try{
                     val a = context?.obtainStyledAttributes(attributeSet, R.styleable.LineItemView)
 
+                    if (a != null){
+
+                        if (a.hasValue(R.styleable.LineItemView_lineId) && a.getString(R.styleable.LineItemView_lineId) != null){
+                            setLineId(a.getString(R.styleable.LineItemView_lineId))
+                            //Log.d(viewTag, getLineId())
+                        }
+
+                        if (a.hasValue(R.styleable.LineItemView_lineColor)) {
+                            setLineColor(a.getColor(R.styleable.LineItemView_lineColor, 0))
+                            Log.d(viewTag, getLinecolor().toString())
+                            my_background.setBackgroundColor(getLinecolor())
+                        }
+                    }
+
+                    /*
                     if (a?.hasValue(R.styleable.LineItemView_lineId)!!) {
                         setLineId(a.getString(R.styleable.LineItemView_lineId))
                         Log.d(viewTag, getLineId())
@@ -40,7 +55,7 @@ class LineItemView : LinearLayout
                         setLineColor(a.getColor(R.styleable.LineItemView_lineColor, 0))
                         Log.d(viewTag, getLinecolor().toString())
                         my_background.setBackgroundColor(getLinecolor())
-                    }
+                    */
 
                 }catch (e:Exception){
                     Log.e(viewTag, e.message)
