@@ -145,11 +145,12 @@ class LineFragment : Fragment() {
             // set stations list
             stationsLayoutManager = LinearLayoutManager(this.context)
 
-
             stationsRecyclerView = buslineStations.apply {
                 layoutManager = stationsLayoutManager
-                adapter = BuslineStationsAdapter(JSONArray(arrayOf("un", "deux", "trois")))
+                adapter = BuslineStationsAdapter(jsonLine!!.periodes[0].aller)
             }
+
+
 
         }catch (e:Exception){
             Log.e(viewTag, e.toString())
