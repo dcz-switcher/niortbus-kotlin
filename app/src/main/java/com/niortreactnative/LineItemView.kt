@@ -34,8 +34,8 @@ class LineItemView : LinearLayout
                     if (a != null){
 
                         if (a.hasValue(R.styleable.LineItemView_lineId) && a.getString(R.styleable.LineItemView_lineId) != null){
-                            setLineId(a.getString(R.styleable.LineItemView_lineId))
                             //Log.d(viewTag, getLineId())
+                            //setLineId(a.getString(R.styleable.LineItemView_lineId))
                         }
 
                         if (a.hasValue(R.styleable.LineItemView_lineColor)) {
