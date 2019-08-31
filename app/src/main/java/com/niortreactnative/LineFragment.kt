@@ -100,7 +100,7 @@ class LineFragment : Fragment() {
                 GlobalScope.launch (Dispatchers.Main){
 
                     withContext(Dispatchers.IO){
-                        populateView()
+                        parseFile()
                     }
 
                     Log.d(viewTag, "long task finished, update UI")
@@ -144,7 +144,6 @@ class LineFragment : Fragment() {
 
             // set stations list
             stationsLayoutManager = LinearLayoutManager(this.context)
-
 
 
             stationsRecyclerView = buslineStations.apply {
@@ -193,19 +192,14 @@ class LineFragment : Fragment() {
 
 
 
-    private fun populateView(){
+    private fun parseFile(){
 
         try{
-        /*
-        val line = readJsonFileFromAssets("$jsonFile.json")
-        Log.d(viewTag, line.toString())
-        */
-          //  val jsonLine = Klaxon().parse<Line>(line.toString())
+
             Log.d(viewTag, "populateView before parsing")
 
             jsonLine = Klaxon().parse<Line>(mContext.assets.open("$jsonFile.json"))
-            //jsonLine = Klaxon().parse<Line>(mContext.assets.open("ligne0.json"))
-            Log.d(viewTag, "DEBUG open ligne0.json to understand how Klaxon works")
+
 
             Log.d(viewTag, "populateView after parsing")
 
@@ -218,7 +212,10 @@ class LineFragment : Fragment() {
             Log.d(viewTag, "ALLER ARRAY SIZE = " + jsonLine?.periodes?.get(0)?.aller?.size)
             Log.d(viewTag, "STATION 0 NAME = " + jsonLine?.periodes?.get(0)?.aller?.get(0)?.name)
 
-            
+            Log.d(viewTag, "STOPS SIZE= " + jsonLine?.periodes?.get(0)?.aller?.get(0)?.stops?.size)
+            Log.d(viewTag, "STOPS 0 DATA= " + jsonLine?.periodes?.get(0)?.aller?.get(0)?.stops?.get(0))
+
+
         }catch (e:Exception){
             Log.e(viewTag, e.toString())
         }

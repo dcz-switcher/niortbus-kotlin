@@ -1,24 +1,23 @@
 package com.niortreactnative
 
-import android.content.Context
+
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import kotlinx.android.synthetic.main.station_item.view.*
 import org.json.JSONArray
-import org.json.JSONObject
+
 
 private const val VIEW_TAG = "BuslineStationsAdapter"
 
 
 class BuslineStationsAdapter(private val dataSet: JSONArray) :
+
     RecyclerView.Adapter<BuslineStationsAdapter.BuslineStationsViewHolder>() {
 
-
-
+    
 
     class BuslineStationsViewHolder(view:View) : RecyclerView.ViewHolder(view){
         val stationName = view.stationName
